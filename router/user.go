@@ -1,6 +1,8 @@
 package router
 
 import (
+	"gin1/middlewares"
+	"gin1/models"
 	"gin1/service"
 
 	"github.com/gin-gonic/gin"
@@ -10,17 +12,12 @@ import (
 func registerUserRoutes(r *gin.Engine) {
 	userRoutes := r.Group("/user")
 	{
-		userRoutes.GET("/", service.HandleGetUser)
-		userRoutes.POST("/", createUser)
+		userRoutes.GET("/", getUser)
+		userRoutes.POST("/", middlewares.ValidateRequest[models.UserRequest](), service.HandleCreateUser)
 	}
 }
 
 // getUser 处理 GET 请求
 func getUser(c *gin.Context) {
 	service.HandleGetUser(c)
-}
-
-// createUser 处理 POST 请求
-func createUser(c *gin.Context) {
-	service.HandleCreateUser(c)
 }
