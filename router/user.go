@@ -10,7 +10,7 @@ import (
 func registerUserRoutes(r *gin.Engine) {
 	userRoutes := r.Group("/user")
 	{
-		userRoutes.GET("/", getUser)
+		userRoutes.GET("/", service.HandleGetUser)
 		userRoutes.POST("/", createUser)
 	}
 }
